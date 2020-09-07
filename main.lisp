@@ -11,6 +11,12 @@
   (loop (sleep 1)))
 
 (defun main ()
+  (push
+   (hunchentoot:create-prefix-dispatcher "/" #'index)
+   hunchentoot:*dispatch-table*)
   (hunchentoot:start
    (make-instance 'hunchentoot:easy-acceptor
-   :port 4242)))
+		  :port 4242)))
+
+(defun index ()
+  (format nil "Common Lisp shook my head!"))
