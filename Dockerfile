@@ -1,5 +1,7 @@
 FROM fukamachi/sbcl:latest-alpine as build
 
+RUN mkdir /app
+
 COPY ./*.lisp /app/
 COPY ./*.asd /app/
 
@@ -17,10 +19,10 @@ COPY --from=build /root /root
 WORKDIR /app
 
 RUN sbcl --non-interactive \
-         --load "test.asd" \
-         --eval '(ql:quickload :test)' \
-         --eval '(test:create-executable)'
+         --load "daft-lisp-test.asd" \
+         --eval '(ql:quickload :daft-lisp-test)' \
+         --eval '(daft-lisp-test:create-executable)'
 
-ENTRYPOINT ["/app/test"]
+ENTRYPOINT ["/app/daft-lisp-test"]
 
 EXPOSE 4242

@@ -1,8 +1,8 @@
-(in-package #:test)
+(in-package #:daft-lisp-test)
 
 #+sbcl
 (defun create-executable ()
-  (sb-ext:save-lisp-and-die "test" :executable t
+  (sb-ext:save-lisp-and-die "daft-lisp-test" :executable t
 			    :toplevel 'entry-point))
 
 #+sbcl
@@ -19,4 +19,4 @@
 		  :port 4242)))
 
 (defun index ()
-  (format nil "Common Lisp shook my head!"))
+  (format nil "Common Lisp blows my head!"))
