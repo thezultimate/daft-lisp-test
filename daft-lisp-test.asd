@@ -6,7 +6,11 @@
   :license  "No license"
   :version "0.0.1"
   :serial t
-  :depends-on (#:hunchentoot)
+  :depends-on (#:hunchentoot
+	       #:prometheus
+	       #:prometheus.formats.text
+	       #:restas)
   :components ((:file "package")
 	       (:file "daft-lisp-test")
+	       (:file "server")
 	       (:file "main")))

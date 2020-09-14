@@ -3,4 +3,6 @@
 (defpackage #:daft-lisp-test
   (:use #:cl)
   (:export #:main
-	   #:create-executable))
+	   #:create-executable
+	   #:*example-registry*
+	   #:*http-requests-counter*))

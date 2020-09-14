@@ -1,5 +1,8 @@
 (in-package #:daft-lisp-test)
 
+(defparameter *example-registry* nil)
+(defparameter *http-requests-counter* nil)
+
 #+sbcl
 (defun create-executable ()
   (sb-ext:save-lisp-and-die "daft-lisp-test" :executable t
@@ -11,12 +14,18 @@
   (loop (sleep 1)))
 
 (defun main ()
-  (push
-   (hunchentoot:create-prefix-dispatcher "/" #'index)
-   hunchentoot:*dispatch-table*)
-  (hunchentoot:start
-   (make-instance 'hunchentoot:easy-acceptor
-		  :port 4242)))
+  (initialize-metrics)
+  (restas:start :daft-lisp-test/server :port 4242))
 
-(defun index ()
-  (format nil "Common Lisp blows my head!"))
+(defun initialize-metrics ()
+  (unless *example-registry*
+    (setf *example-registry* (prom:make-registry))
+    (let ((prom:*default-registry* *example-registry*))
+      (setf *http-requests-counter*
+            (prom:make-counter :name "http_requests_total"
+                               :help "Counts http request"
+                               :labels '("app"))))))
+
+#||
+(main)
+||#
