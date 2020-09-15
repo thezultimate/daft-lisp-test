@@ -16,4 +16,4 @@
 
 (defun hello ()
   (prom:counter.inc daft-lisp-test:*http-requests-counter* :labels '("app"))
-  (format nil "Common Lisp is for cool developers!"))
+  (format nil "Common Lisp is for true developers!"))
